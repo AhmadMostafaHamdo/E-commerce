@@ -1,8 +1,9 @@
-import { Category } from "@components/ecommerce";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { thunkGetCategories } from "@store/categories/thunk/thunkGetCategories";
 import { useEffect } from "react";
-import { Col } from "react-bootstrap";
+import { Loading } from "src/feedback";
+import { GridList } from "@components/common";
+import { Category } from "@components/ecommerce";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
@@ -14,20 +15,15 @@ const Categories = () => {
       dispatch(thunkGetCategories());
     }
   }, [dispatch, records]);
-  const categoriesList =
-    records.length > 0
-      ? records.map((record) => {
-          return (
-            <Col
-              key={record.id}
-              className="d-flex justify-content-center mb-5 mt-2"
-            >
-              <Category {...record} />
-            </Col>
-          );
-        })
-      : "there are no categories";
-  return <div className="d-flex flex-wrap">{categoriesList}</div>;
+
+  return (
+    <Loading error={error} state={loading}>
+      <GridList
+        records={records}
+        renderItems={(records) => <Category {...records} />}
+      />
+    </Loading>
+  );
 };
 
 export default Categories;

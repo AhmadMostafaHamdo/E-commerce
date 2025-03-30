@@ -31,6 +31,7 @@ const productsSlice = createSlice({
     });
     builder.addCase(thankProductsByCatPrefix.rejected, (state) => {
       state.error = "An Expected Error";
+      state.loading = "rejected";
     });
   },
 });

@@ -5,6 +5,8 @@ import { productsCleanUp } from "@store/products/productsSlices";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { Product } from "@components/ecommerce";
 import { Col } from "react-bootstrap";
+import { Loading } from "src/feedback";
+import { GridList } from "@components/common";
 const Products = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
@@ -15,20 +17,14 @@ const Products = () => {
       dispatch(productsCleanUp());
     };
   }, [dispatch, params]);
-  const prouctsList =
-    records.length > 0
-      ? records.map((record) => {
-          return (
-            <Col
-              key={record.id}
-              className="d-flex justify-content-center mb-5 mt-2"
-            >
-              <Product {...record} />
-            </Col>
-          );
-        })
-      : "there are no categories";
-  return <div className="d-flex flex-wrap">{prouctsList}</div>;
+  return (
+    <Loading state={loading} error={error}>
+      <GridList
+        records={records}
+        renderItems={(records) => <Product {...records} />}
+      />
+    </Loading>
+  );
 };
 
 export default Products;
