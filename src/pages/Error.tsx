@@ -1,30 +1,16 @@
-import { Link, useRouteError, isRouteErrorResponse } from "react-router-dom";
-import "@styles/error.css";
+import { Link } from "react-router-dom";
+import LottieHandler from "src/feedback/lottieHandler/lottieHandler";
 const Error = () => {
-  const error = useRouteError();
-  let errorStatus: number;
-  let errorstatusText: string;
-  if (isRouteErrorResponse(error)) {
-    errorStatus = error.status;
-    errorstatusText = error.statusText;
-  } else {
-    errorStatus = 404;
-    errorstatusText = "Not Found";
-  }
   return (
-    <div className="error">
-      <div className="error-content">
-        <h1>Error</h1>
-        <p>
-          {" "}
-          {errorstatusText} {errorStatus}
-        </p>
-        <Link to="/" replace={true} target="_blank">
-          How about going back to saftey ? 
-        </Link>
-      </div>
+    <div
+      className="container d-flex flex-column justify-content-center align-items-center"
+      style={{ height: "100vh" }}
+    >
+      <LottieHandler type="notFound" message="This Page Not Found" />;
+      <Link to="/" replace={true} target="_blank">
+        How about going back to saftey ?
+      </Link>
     </div>
   );
 };
-
 export default Error;

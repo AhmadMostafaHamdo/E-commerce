@@ -19,6 +19,7 @@
 }
 .categoryTitle {
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 600;
   margin-top: 10px;
 }

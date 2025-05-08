@@ -1,26 +1,17 @@
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { thunkGetCategories } from "@store/categories/thunk/thunkGetCategories";
-import { useEffect } from "react";
 import { Loading } from "src/feedback";
-import { GridList } from "@components/common";
+import { GridList, Heading } from "@components/common";
 import { Category } from "@components/ecommerce";
+import useCategories from "@hooks/useCategories";
 
 const Categories = () => {
-  const dispatch = useAppDispatch();
-  const { loading, error, records } = useAppSelector(
-    (state) => state.categories
-  );
-  useEffect(() => {
-    if (!records.length) {
-      dispatch(thunkGetCategories());
-    }
-  }, [dispatch, records]);
-
+  const { error, loading, records } = useCategories();
   return (
-    <Loading error={error} state={loading}>
+    <Loading error={error} state={loading} type="category">
+      <Heading title="Categories" />
       <GridList
         records={records}
         renderItems={(records) => <Category {...records} />}
+        message="your categories is empty"
       />
     </Loading>
   );

@@ -5,13 +5,16 @@ const { category, categoryImg, categoryTitle } = styles;
 
 function Category({ title, prefix, img }: TCategory) {
   return (
-    <div className={category}>
-      <Link to={`/categories/products/${prefix}`}>
-        <div className={categoryImg}>
-          <img src={img} alt={title} />
-        </div>
-        <div className={categoryTitle}>{title}</div>
-      </Link>
+    <div>
+      <div className={category}>
+        {" "}
+        <Link to={`/categories/products/${prefix}`}>
+          <div className={categoryImg}>
+            <img src={img} alt={title} />
+          </div>
+        </Link>
+      </div>
+      <div className={categoryTitle}>{title}</div>
     </div>
   );
 }

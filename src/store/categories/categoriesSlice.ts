@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { thunkGetCategories } from "./thunk/thunkGetCategories";
 import { TCategory } from "@customTypes/category";
 import { TLoading } from "@customTypes/shared";
+import { isString } from "@customTypes/guards";
 interface ICategoriesState {
   records: TCategory[];
-  loading: TLoading;  
+  loading: TLoading;
   error: string | null;
 }
 const initialState: ICategoriesState = {
@@ -15,7 +16,11 @@ const initialState: ICategoriesState = {
 const categoriesSlice = createSlice({
   name: "categories",
   initialState,
-  reducers: {},
+  reducers: {
+    cleanUpCategories: (state) => {
+      state.records = [];
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(thunkGetCategories.pending, (state) => {
       state.loading = "pending";
@@ -27,10 +32,11 @@ const categoriesSlice = createSlice({
     });
     builder.addCase(thunkGetCategories.rejected, (state, action) => {
       state.loading = "rejected";
-      if (action.payload && typeof action.payload == "string") {
+      if (isString(action.payload)) {
         state.error = action.payload;
       }
     });
   },
 });
+export const {cleanUpCategories} = categoriesSlice.actions;
 export default categoriesSlice.reducer;

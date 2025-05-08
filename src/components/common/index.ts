@@ -1,4 +1,5 @@
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import GridList from "./GridList/GridList";
-export { Footer, Header, GridList };
+import Heading from "./Heading/Heading";
+export { Footer, Header, GridList, Heading };
